@@ -8,6 +8,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { CountableRow } from "./components/CountableRow";
 import { AddRow } from "./components/AddRow";
+import { CountButton } from "./components/CountButton";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -24,6 +25,15 @@ export default function App() {
     const newState = [...countables, { name, count: 0 }];
     setCountables(newState);
   };
+
+  const createButton = (text, amount, index) => (
+    <CountButton
+      text={text}
+      submit={() => {
+        changeCount(amount, index);
+      }}
+    />
+  );
 
   const isLoaded = useRef(false);
 
@@ -50,8 +60,8 @@ export default function App() {
             <CountableRow
               countable={countable}
               key={countable.name}
-              changeCount={changeCount}
-              index={index}
+              addButton={createButton("+", 1, index)}
+              subtractButton={createButton("-", -1, index)}
             />
           ))}
         </ScrollView>
