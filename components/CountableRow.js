@@ -1,29 +1,35 @@
+import { useContext } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { CountButton } from "./CountButton";
 import { CommonStyles } from "../styles/CommonStyles";
+import { CountableContext } from "../contexts/CountableContext";
 
-export const CountableRow = ({ countable, changeCount, index }) => (
-  <View style={CommonStyles.row}>
-    <View style={styles.nameColumn}>
-      <Text style={CommonStyles.textItem}>{countable.name}</Text>
-      <Text style={CommonStyles.textItem}>{countable.count}</Text>
+export const CountableRow = ({ countable, index }) => {
+  const { changeCount } = useContext(CountableContext);
+
+  return (
+    <View style={CommonStyles.row}>
+      <View style={styles.nameColumn}>
+        <Text style={CommonStyles.textItem}>{countable.name}</Text>
+        <Text style={CommonStyles.textItem}>{countable.count}</Text>
+      </View>
+      <View style={styles.buttonColumn}>
+        <CountButton
+          text={"+"}
+          submit={() => {
+            changeCount(1, index);
+          }}
+        />
+        <CountButton
+          text={"-"}
+          submit={() => {
+            changeCount(-1, index);
+          }}
+        />
+      </View>
     </View>
-    <View style={styles.buttonColumn}>
-      <CountButton
-        text={"+"}
-        submit={() => {
-          changeCount(1, index);
-        }}
-      />
-      <CountButton
-        text={"-"}
-        submit={() => {
-          changeCount(-1, index);
-        }}
-      />
-    </View>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   nameColumn: {
