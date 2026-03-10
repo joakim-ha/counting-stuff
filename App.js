@@ -25,6 +25,10 @@ export default function App() {
     setCountables(newState);
   };
 
+  const removeCountable = (index) => {
+    setCountables(countables.filter((_, i) => i !== index));
+  };
+
   const isLoaded = useRef(false);
 
   useEffect(() => {
@@ -51,6 +55,7 @@ export default function App() {
               countable={countable}
               key={countable.name}
               changeCount={changeCount}
+              removeCountable={removeCountable}
               index={index}
             />
           ))}
