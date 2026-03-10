@@ -22,10 +22,14 @@ export default function App() {
 
   const addNewCountable = (name) => {
     const exists = countables.some((item) => item.name === name);
+    const empty = name === "";
     if (exists) {
       alert("That name already exists, choose another.");
     }
-    if (!exists) {
+    if (empty) {
+      alert("Empty name not allowed");
+    }
+    if (!exists && !empty) {
       const newState = [...countables, { name, count: 0 }];
       setCountables(newState);
     }
