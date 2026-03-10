@@ -21,8 +21,14 @@ export default function App() {
   };
 
   const addNewCountable = (name) => {
-    const newState = [...countables, { name, count: 0 }];
-    setCountables(newState);
+    const exists = countables.some((item) => item.name === name);
+    if (exists) {
+      alert("That name already exists, choose another.");
+    }
+    if (!exists) {
+      const newState = [...countables, { name, count: 0 }];
+      setCountables(newState);
+    }
   };
 
   const removeCountable = (index) => {
