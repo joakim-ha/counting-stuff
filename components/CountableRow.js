@@ -9,11 +9,11 @@ export const CountableRow = ({
   index,
 }) => (
   <View style={CommonStyles.row}>
-    <View style={styles.nameColumn}>
+    <View style={CommonStyles.nameColumn}>
       <Text style={CommonStyles.textItem}>{countable.name}</Text>
       <Text style={CommonStyles.textItem}>{countable.count}</Text>
     </View>
-    <View style={styles.buttonColumn}>
+    <View style={CommonStyles.buttonColumn}>
       <CountButton
         text={"+"}
         submit={() => {
@@ -35,13 +35,3 @@ export const CountableRow = ({
     </View>
   </View>
 );
-
-const styles = StyleSheet.create({
-  nameColumn: {
-    flex: 0.8,
-    alignItems: "center",
-  },
-  buttonColumn: {
-    flex: 0.2,
-  },
-});

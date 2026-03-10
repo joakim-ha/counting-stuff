@@ -14,4 +14,11 @@ export const CommonStyles = StyleSheet.create({
     paddingEnd: 20,
     paddingStart: 20,
   },
+  nameColumn: {
+    flex: 0.8,
+    alignItems: "center",
+  },
+  buttonColumn: {
+    flex: 0.2,
+  },
 });
