@@ -21,4 +21,11 @@ export const CommonStyles = StyleSheet.create({
   buttonColumn: {
     flex: 0.2,
   },
+  entryColumn: {
+    flex: 0.7,
+    alignItems: "center",
+  },
+  addColumn: {
+    flex: 0.3,
+  },
 });

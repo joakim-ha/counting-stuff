@@ -8,14 +8,15 @@ export const AddRow = ({ addNewCountable }) => {
 
   return (
     <View style={CommonStyles.row}>
-      <View style={CommonStyles.nameColumn}>
+      <View style={CommonStyles.entryColumn}>
         <TextInput placeholder="Enter name" onChangeText={setName} />
       </View>
-      <View style={CommonStyles.buttonColumn}>
+      <View style={CommonStyles.addColumn}>
         <CountButton
           text="Add"
           submit={() => {
             addNewCountable(name);
+            setName("");
           }}
         />
       </View>
