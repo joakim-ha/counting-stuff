@@ -9,7 +9,11 @@ export const AddRow = ({ addNewCountable }) => {
   return (
     <View style={CommonStyles.row}>
       <View style={CommonStyles.entryColumn}>
-        <TextInput placeholder="Enter name" onChangeText={setName} />
+        <TextInput
+          placeholder="Enter name"
+          value={name}
+          onChangeText={setName}
+        />
       </View>
       <View style={CommonStyles.addColumn}>
         <CountButton
