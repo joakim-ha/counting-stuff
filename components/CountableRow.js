@@ -20,6 +20,7 @@ export const CountableRow = ({ countable, changeCount, index }) => (
         submit={() => {
           changeCount(-1, index);
         }}
+        disabled={countable.count === 0}
       />
     </View>
   </View>
