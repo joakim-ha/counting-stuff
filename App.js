@@ -4,6 +4,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Keyboard,
 } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { CountableRow } from "./components/CountableRow";
@@ -21,7 +22,18 @@ export default function App() {
   };
 
   const addNewCountable = (name) => {
+    if (!name) return; //kan inte lägga till en blank
+
+    const isDuplicate = countables.some((countable) => countable.name === name);
+    if (isDuplicate) return; //kan inte lägga till en med samma namn
     const newState = [...countables, { name, count: 0 }];
+    setCountables(newState);
+    Keyboard.dismiss(); //stänger tangentbordet efter submit
+  };
+  //ta bort en countable
+  const deleteCountable = (index) => {
+    const newState = [...countables];
+    newState.splice(index, 1);
     setCountables(newState);
   };
 
@@ -52,6 +64,7 @@ export default function App() {
               key={countable.name}
               changeCount={changeCount}
               index={index}
+              deleteCountable={deleteCountable}
             />
           ))}
         </ScrollView>

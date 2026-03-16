@@ -1,13 +1,19 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Button } from "react-native";
 import { CountButton } from "./CountButton";
 import { CommonStyles } from "../styles/CommonStyles";
 
-export const CountableRow = ({ countable, changeCount, index }) => (
+export const CountableRow = ({
+  countable,
+  changeCount,
+  index,
+  deleteCountable,
+}) => (
   <View style={CommonStyles.row}>
     <View style={styles.nameColumn}>
       <Text style={CommonStyles.textItem}>{countable.name}</Text>
       <Text style={CommonStyles.textItem}>{countable.count}</Text>
     </View>
+    <Button title="Ta bort" onPress={() => deleteCountable(index)} />
     <View style={styles.buttonColumn}>
       <CountButton
         text={"+"}
@@ -15,12 +21,14 @@ export const CountableRow = ({ countable, changeCount, index }) => (
           changeCount(1, index);
         }}
       />
-      <CountButton
-        text={"-"}
-        submit={() => {
-          changeCount(-1, index);
-        }}
-      />
+      {countable.count > 0 && (
+        <CountButton
+          text={"-"}
+          submit={() => {
+            changeCount(-1, index);
+          }}
+        />
+      )}
     </View>
   </View>
 );
