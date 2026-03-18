@@ -4,12 +4,15 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Keyboard,
 } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { CountableRow } from "./components/CountableRow";
 import { AddRow } from "./components/AddRow";
+import { InsetPrinter } from "./inset/InsetPrinter";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { KeyboardStatus } from "./keyboard/KeyboardStatus";
 
 export default function App() {
   const [countables, setCountables] = useState([]);
@@ -57,32 +60,37 @@ export default function App() {
   }, [countables]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
-      >
-        <ScrollView>
-          {countables.map((countable, index) => (
-            <CountableRow
-              countable={countable}
-              key={countable.name}
-              changeCount={changeCount}
-              removeCountable={removeCountable}
-              index={index}
-            />
-          ))}
-        </ScrollView>
-        <AddRow addNewCountable={addNewCountable} />
-      </KeyboardAvoidingView>
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
+          style={styles.container}
+        >
+          <ScrollView>
+            {countables.map((countable, index) => (
+              <CountableRow
+                countable={countable}
+                key={countable.name}
+                changeCount={changeCount}
+                removeCountable={removeCountable}
+                index={index}
+              />
+            ))}
+          </ScrollView>
+          <InsetPrinter></InsetPrinter>
+          <KeyboardStatus></KeyboardStatus>
+          <AddRow addNewCountable={addNewCountable} />
+          <StatusBar style="auto" />
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "#ffffffa4",
     flex: 1,
-    backgroundColor: "#fff",
   },
 });
