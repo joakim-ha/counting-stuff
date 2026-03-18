@@ -1,9 +1,13 @@
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { CommonStyles } from "../styles/CommonStyles";
 
-export const CountButton = ({ text, submit }) => (
-  <TouchableOpacity style={styles.button} onPress={submit}>
-    <Text style={CommonStyles.textItem}>{text}</Text>
+export const CountButton = ({ text, submit, disabled, textSize = 60 }) => (
+  <TouchableOpacity
+    style={[styles.button, disabled && styles.disabledButton]} 
+    onPress={submit} 
+    disabled={disabled}
+    >
+    <Text style={[styles.text, { fontSize: textSize }]}>{text}</Text>
   </TouchableOpacity>
 );
 
@@ -13,5 +17,8 @@ const styles = StyleSheet.create({
     margin: 5,
     backgroundColor: "lightblue",
     alignItems: "center",
+  },
+  disabledButton: {
+    backgroundColor: "lightgray",
   },
 });

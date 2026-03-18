@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const CommonStyles = StyleSheet.create({
   textItem: {
-    fontSize: 40,
+    fontSize: 60,
   },
   row: {
     flexDirection: "row",
@@ -11,7 +11,7 @@ export const CommonStyles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 5,
     margin: 5,
-    paddingEnd: 20,
-    paddingStart: 20,
+    paddingEnd: 10,
+    paddingStart: 10,
   },
 });
