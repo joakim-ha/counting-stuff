@@ -3,7 +3,7 @@ import {
   StyleSheet,
   ScrollView,
   KeyboardAvoidingView,
-  Platform,
+  Platform
 } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { CountableRow } from "./components/CountableRow";
@@ -17,10 +17,25 @@ export default function App() {
   const changeCount = (amount, index) => {
     const newState = [...countables];
     newState[index].count += amount;
+    if(newState[index].count < 0) {
+      newState[index].count = 0
+    } else{
     setCountables(newState);
+    }
   };
 
   const addNewCountable = (name) => {
+    if(name.trim() === ""){
+      alert("fältet är tomt");
+      return;
+    }
+    const exists = countables.some(
+      (countable) => countable.name === name
+    )
+    if(exists){
+      alert("Denna countable finns redan!");
+      return;
+    }
     const newState = [...countables, { name, count: 0 }];
     setCountables(newState);
   };
