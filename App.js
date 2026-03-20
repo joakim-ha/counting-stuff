@@ -1,9 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import {
+  Text,
   StyleSheet,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Keyboard
 } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { CountableRow } from "./components/CountableRow";
@@ -20,10 +22,25 @@ export default function App() {
     setCountables(newState);
   };
 
-  const addNewCountable = (name) => {
-    const newState = [...countables, { name, count: 0 }];
-    setCountables(newState);
-  };
+ const addNewCountable = (name) => {
+  const trimmedName = name.trim();
+  // förhindrar att två objekt kan ha samma namn
+  if (!trimmedName || countables.some(c => c.name.toLowerCase() === trimmedName.toLowerCase())) {
+    return;
+  }
+  const newState = [...countables, { name: trimmedName, count: 0 }];
+  setCountables(newState);
+  Keyboard.dismiss(); // tar ner tangenbordet
+ };
+
+ // ta bort ett objekt
+ const removeCountable = (index) => {
+  setCountables((prev) => {
+    const newState = [...prev];
+    newState.splice(index, 1);
+    return newState;
+  });
+};
 
   const isLoaded = useRef(false);
 
@@ -40,21 +57,26 @@ export default function App() {
   }, [countables]);
 
   return (
+    // alternativ vy när listan är tom
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.container}
       >
-        <ScrollView>
-          {countables.map((countable, index) => (
-            <CountableRow
-              countable={countable}
-              key={countable.name}
-              changeCount={changeCount}
-              index={index}
-            />
-          ))}
-        </ScrollView>
+       <ScrollView>
+        {countables.length === 0 ? (
+          <Text style={{ textAlign: "center", marginTop: 100, fontSize: 18 }}>Nothing to count</Text>) : 
+        (countables.map((countable, index) => (
+          <CountableRow
+            countable={countable}
+            key={countable.name}
+            changeCount={changeCount}
+            index={index}
+            removeCountable={() => removeCountable(index)}
+      />
+    ))
+  )}
+</ScrollView>
         <AddRow addNewCountable={addNewCountable} />
       </KeyboardAvoidingView>
       <StatusBar style="auto" />

@@ -6,14 +6,29 @@ import { CountButton } from "./CountButton";
 export const AddRow = ({ addNewCountable }) => {
   const [name, setName] = useState("");
 
+  // töm textinput efter att ha lagt till ett objekt
+  const handleAdd = () => {
+    if (name.trim().length > 0) {
+      addNewCountable(name);
+      setName("");
+    }
+  };
+
   return (
-    <View style={CommonStyles.row}>
-      <TextInput placeholder="Enter name" onChangeText={setName} />
+
+    // förbättrade layouten i AddRow
+    <View style={[CommonStyles.row, { alignItems: 'center', gap: 10 }]}>
+      <TextInput
+        style={{ flex: 1, borderBottomWidth: 1, borderBottomColor: '#ccc', paddingVertical: 8 }}
+        placeholder="Enter name"
+        value={name}
+        onChangeText={setName}
+      />
       <CountButton
         text="Add"
-        submit={() => {
-          addNewCountable(name);
-        }}
+        submit={handleAdd}
+        // förhindra skapandet av objekt med tomma namn
+        disabled={!name.trim()}
       />
     </View>
   );
