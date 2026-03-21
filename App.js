@@ -77,13 +77,13 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        enabled={KAVHeightCompensation}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
-        style={styles.containerKAV}
-      >
-        <SafeAreaView style={styles.containerSAV}>
+      <SafeAreaView style={styles.containerSAV}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          enabled={KAVHeightCompensation}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
+          style={styles.containerKAV}
+        >
           <ScrollView>
             {countables.map((countable, index) => (
               <CountableRow
@@ -97,8 +97,8 @@ export default function App() {
           </ScrollView>
           <AddRow addNewCountable={addNewCountable} />
           <StatusBar style="auto" />
-        </SafeAreaView>
-      </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
     </SafeAreaProvider>
   );
 }
