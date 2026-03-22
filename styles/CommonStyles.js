@@ -13,5 +13,6 @@ export const CommonStyles = StyleSheet.create({
     margin: 5,
     paddingEnd: 20,
     paddingStart: 20,
+    paddingTop: 20,
   },
 });

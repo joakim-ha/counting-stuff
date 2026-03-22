@@ -1,6 +1,6 @@
-import { Text, View, StyleSheet } from "react-native";
-import { CountButton } from "./CountButton";
+import { StyleSheet, Text, View } from "react-native";
 import { CommonStyles } from "../styles/CommonStyles";
+import { CountButton } from "./CountButton";
 
 export const CountableRow = ({ countable, changeCount, index }) => (
   <View style={CommonStyles.row}>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, TextInput } from "react-native";
+import { TextInput, View } from "react-native";
 import { CommonStyles } from "../styles/CommonStyles";
 import { CountButton } from "./CountButton";
 
