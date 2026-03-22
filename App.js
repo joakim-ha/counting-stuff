@@ -1,15 +1,15 @@
 import { StatusBar } from "expo-status-bar";
+import { useEffect, useRef, useState } from "react";
 import {
-  StyleSheet,
-  ScrollView,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
+  StyleSheet,
 } from "react-native";
-import { useEffect, useRef, useState } from "react";
-import { CountableRow } from "./components/CountableRow";
-import { AddRow } from "./components/AddRow";
-import { loadCountables, saveCountables } from "./storage/CountableStorage";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { AddRow } from "./components/AddRow";
+import { CountableRow } from "./components/CountableRow";
+import { loadCountables, saveCountables } from "./storage/CountableStorage";
 
 export default function App() {
   const [countables, setCountables] = useState([]);
