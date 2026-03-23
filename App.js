@@ -10,6 +10,7 @@ import { CountableRow } from "./components/CountableRow";
 import { AddRow } from "./components/AddRow";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Alert } from "react-native";
 
 
 export default function App() {
@@ -22,7 +23,24 @@ export default function App() {
   };
 
   const addNewCountable = (name) => {
-    const newState = [...countables, { name, count: 0 }];
+    const trimmedName = name.trim();
+
+    // Stoppa tomma namn och dubbletter
+    if (trimmedName === "") {
+      Alert.alert("Error", "Name cannot be empty!");
+      return;
+    }
+
+    const exists = countables.some(
+      (item) => item.name.toLowerCase() === trimmedName.toLowerCase()
+    );
+
+    if (exists) {
+      Alert.alert("Error", "This name already exists!");
+      return;
+    }
+
+    const newState = [...countables, { name: trimmedName, count: 0 }];
     setCountables(newState);
   };
 
