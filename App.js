@@ -1,15 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useRef, useState } from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  StyleSheet,
-} from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AddRow } from "./components/AddRow";
 import { CountableRow } from "./components/CountableRow";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
+import { CommonStyles } from "./styles/CommonStyles";
 
 export default function App() {
   const [countables, setCountables] = useState([]);
@@ -40,10 +36,10 @@ export default function App() {
   }, [countables]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={CommonStyles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}
+        style={CommonStyles.container}
       >
         <ScrollView>
           {countables.map((countable, index) => (
@@ -61,10 +57,3 @@ export default function App() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-});
