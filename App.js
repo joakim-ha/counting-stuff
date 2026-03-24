@@ -14,6 +14,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function App() {
   const [countables, setCountables] = useState([]);
 
+  // 🎨 färger
+  const colors = ["#FFCCCC", "#CCFFCC", "#CCCCFF", "#FFF0B3", "#E0CCFF"];
+
   const changeCount = (amount, index) => {
     const newState = [...countables];
     newState[index].count += amount;
@@ -21,7 +24,13 @@ export default function App() {
   };
 
   const addNewCountable = (name) => {
-    const newState = [...countables, { name, count: 0 }];
+    const color = colors[countables.length % colors.length];
+    const newState = [...countables, { name, count: 0, color }];
+    setCountables(newState);
+  };
+
+  const removeCountable = (indexToRemove) => {
+    const newState = countables.filter((_, index) => index !== indexToRemove);
     setCountables(newState);
   };
 
@@ -51,12 +60,15 @@ export default function App() {
               countable={countable}
               key={countable.name}
               changeCount={changeCount}
+              removeCountable={removeCountable}
               index={index}
             />
           ))}
         </ScrollView>
+
         <AddRow addNewCountable={addNewCountable} />
       </KeyboardAvoidingView>
+
       <StatusBar style="auto" />
     </SafeAreaView>
   );

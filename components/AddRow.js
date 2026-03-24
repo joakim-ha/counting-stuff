@@ -6,15 +6,21 @@ import { CountButton } from "./CountButton";
 export const AddRow = ({ addNewCountable }) => {
   const [name, setName] = useState("");
 
+  const handleAdd = () => {
+    if (!name.trim()) return;
+    addNewCountable(name);
+    setName("");
+  };
+
   return (
-    <View style={CommonStyles.row}>
-      <TextInput placeholder="Enter name" onChangeText={setName} />
-      <CountButton
-        text="Add"
-        submit={() => {
-          addNewCountable(name);
-        }}
+    <View style={CommonStyles.addRow}>
+      <TextInput
+        style={CommonStyles.input}
+        placeholder="Enter name"
+        value={name}
+        onChangeText={setName}
       />
+      <CountButton text="Add" submit={handleAdd} />
     </View>
   );
 };
