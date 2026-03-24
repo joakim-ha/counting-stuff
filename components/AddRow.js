@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, TextInput } from "react-native";
 import { CommonStyles } from "../styles/CommonStyles";
 import { CountButton } from "./CountButton";
+import { Keyboard } from "react-native";
 
 export const AddRow = ({ addNewCountable }) => {
   const [name, setName] = useState("");
@@ -21,6 +22,7 @@ export const AddRow = ({ addNewCountable }) => {
           if (name.trim() !== "") {
             addNewCountable(name);
             setName("");
+            Keyboard.dismiss();
           }
         }}
       />

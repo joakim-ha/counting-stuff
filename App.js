@@ -44,6 +44,12 @@ export default function App() {
     setCountables(newState);
   };
 
+  const removeCountable = (index) => {
+    const newState = countables.filter((_, i) => i !== index);
+    setCountables(newState);
+
+  };
+
   const isLoaded = useRef(false);
 
   useEffect(() => {
@@ -71,6 +77,7 @@ export default function App() {
               key={countable.name}
               changeCount={changeCount}
               index={index}
+              removeCountable={removeCountable}
             />
           ))}
         </ScrollView>
