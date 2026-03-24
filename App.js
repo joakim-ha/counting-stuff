@@ -1,9 +1,15 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useRef, useState } from "react";
-import { KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AddRow } from "./components/AddRow";
 import { CountableRow } from "./components/CountableRow";
+import { isEquals } from "./components/InputValidation";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
 import { CommonStyles } from "./styles/CommonStyles";
 
@@ -17,6 +23,11 @@ export default function App() {
   };
 
   const addNewCountable = (name) => {
+    if (isEquals(countables, name)) {
+      Alert.alert(`${name} already exists`);
+      return;
+    }
+
     const newState = [...countables, { name, count: 0 }];
     setCountables(newState);
   };
