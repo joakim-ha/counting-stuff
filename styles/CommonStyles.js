@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 export const CommonStyles = StyleSheet.create({
   textItem: {
     fontSize: 40,
+    marginTop: -60,
   },
   container: {
     flex: 1,
@@ -59,8 +60,28 @@ export const CommonStyles = StyleSheet.create({
     margin: 5,
     alignItems: "center",
   },
+  buttonEditDelete: {
+    flexDirection: "row",
+    marginTop: 50,
+    marginLeft: -260,
+  },
+  buttonEdit: {
+    backgroundColor: "orange",
+    borderRadius: 5,
+    borderWidth: 2,
+    margin: 2,
+    alignItems: "center",
+  },
+  buttonDelete: {
+    backgroundColor: "red",
+    borderRadius: 5,
+    borderWidth: 2,
+    margin: 2,
+    alignItems: "center",
+  },
   buttonSubtraction: {
     backgroundColor: "red",
+    marginBottom: -120,
     borderRadius: 5,
     borderWidth: 2,
     margin: 5,

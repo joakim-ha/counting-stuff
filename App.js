@@ -89,6 +89,12 @@ export default function App() {
     return true;
   };
 
+  // Handling of deleting birds
+  const deleteCountable = (id) => {
+    const newState = countables.filter((bird) => bird.id !== id);
+    setCountables(newState);
+  };
+
   const isLoaded = useRef(false);
 
   useEffect(() => {
@@ -140,6 +146,7 @@ export default function App() {
               countable={countable}
               key={countable.id}
               changeCount={changeCount}
+              deleteCountable={deleteCountable}
             />
           ))}
         </ScrollView>
