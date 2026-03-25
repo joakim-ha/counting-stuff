@@ -18,7 +18,13 @@ export default function App() {
 
   const changeCount = (amount, index) => {
     const newState = [...countables];
-    newState[index].count += amount;
+    const newValue = newState[index].count + amount;
+
+    if (newValue < 0) {
+      return;
+    }
+
+    newState[index].count = newValue;
     setCountables(newState);
   };
 
