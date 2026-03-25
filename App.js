@@ -123,9 +123,6 @@ export default function App() {
                 {sortBy === "name" ? (sortDirection === "asc" ? "↑" : "↓") : ""}
               </Text>
             </TouchableOpacity>
-          </View>
-
-          <View style={CommonStyles.headerRow}>
             <TouchableOpacity onPress={() => changeSort("count")}>
               <Text style={CommonStyles.headerText}>
                 Seen
