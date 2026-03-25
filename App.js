@@ -5,6 +5,9 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AddRow } from "./components/AddRow";
@@ -14,20 +17,57 @@ import { loadCountables, saveCountables } from "./storage/CountableStorage";
 import { CommonStyles } from "./styles/CommonStyles";
 
 export default function App() {
+  const [sortBy, setSortBy] = useState(null);
+  const [sortDirection, setSortDirection] = useState("asc");
   const [countables, setCountables] = useState([]);
+  const [nextId, setNextId] = useState(1);
 
-  const changeCount = (amount, index) => {
-    const newState = [...countables];
-    const newValue = newState[index].count + amount;
+  // State Handling of number of Birds seen
+  const changeCount = (amount, id) => {
+    const newState = countables.map((bird) => {
+      if (bird.id !== id) {
+        return bird;
+      }
 
-    if (newValue < 0) {
-      return;
-    }
+      const newValue = bird.count + amount;
 
-    newState[index].count = newValue;
+      if (newValue < 0) {
+        return bird;
+      }
+
+      return { ...bird, count: newValue };
+    });
+
     setCountables(newState);
   };
 
+  // Handling of sorting of bird list
+  const changeSort = (column) => {
+    if (sortBy === column) {
+      setSortDirection((prev) => (prev == "asc" ? "desc" : "asc"));
+    } else {
+      setSortBy(column);
+      setSortDirection("asc");
+    }
+  };
+
+  const sortedCountables = [...countables].sort((a, b) => {
+    if (!sortBy) return 0;
+
+    if (sortBy === "name") {
+      const result = a.name.localeCompare(b.name);
+      return sortDirection === "asc" ? result : -result;
+    }
+
+    if (sortBy === "count") {
+      const result = a.count - b.count;
+      return sortDirection === "asc" ? result : -result;
+    }
+
+    return 0;
+  });
+
+  // Handling of adding new birds
   const addNewCountable = (name) => {
     const error = validateNewBirdName(countables, name);
 
@@ -37,8 +77,15 @@ export default function App() {
     }
 
     const cleanBirdName = name.trim();
-    const newState = [...countables, { name: cleanBirdName, count: 0 }];
+
+    const newState = [
+      ...countables,
+      { id: nextId, name: cleanBirdName, count: 0 },
+    ];
+
     setCountables(newState);
+    setNextId(nextId + 1);
+
     return true;
   };
 
@@ -46,7 +93,13 @@ export default function App() {
 
   useEffect(() => {
     loadCountables().then((result) => {
-      setCountables(result);
+      const withIds = result.map((item, index) => ({
+        ...item,
+        id: index ?? index + 1,
+      }));
+
+      setCountables(withIds);
+      setNextId(withIds.length + 1);
       isLoaded.current = true;
     });
   }, []);
@@ -63,12 +116,33 @@ export default function App() {
         style={CommonStyles.container}
       >
         <ScrollView>
-          {countables.map((countable, index) => (
+          <View style={CommonStyles.headerRow}>
+            <TouchableOpacity onPress={() => changeSort("name")}>
+              <Text style={CommonStyles.headerText}>
+                Name
+                {sortBy === "name" ? (sortDirection === "asc" ? "↑" : "↓") : ""}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={CommonStyles.headerRow}>
+            <TouchableOpacity onPress={() => changeSort("count")}>
+              <Text style={CommonStyles.headerText}>
+                Seen
+                {sortBy === "count"
+                  ? sortDirection === "asc"
+                    ? "↑"
+                    : "↓"
+                  : ""}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          {sortedCountables.map((countable) => (
             <CountableRow
               countable={countable}
-              key={countable.name}
+              key={countable.id}
               changeCount={changeCount}
-              index={index}
             />
           ))}
         </ScrollView>

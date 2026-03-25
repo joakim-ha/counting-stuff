@@ -11,6 +11,16 @@ export const CommonStyles = StyleSheet.create({
     paddingBottom: 15,
     paddingHorizontal: 7,
   },
+  headerRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+  },
+  headerText: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
   row: {
     flexDirection: "row",
     alignItems: "center",
