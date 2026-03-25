@@ -19,7 +19,12 @@ export const CountableRow = ({ countable, changeCount, index }) => (
         />
       </View>
       {/* Subtraction  Button */}
-      <View style={CommonStyles.buttonSubtraction}>
+      <View
+        style={[
+          CommonStyles.buttonSubtraction,
+          countable.count === 0 && CommonStyles.disabledButton,
+        ]}
+      >
         <CountButton
           text={"-"}
           submit={() => {

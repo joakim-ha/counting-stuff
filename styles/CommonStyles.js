@@ -45,6 +45,9 @@ export const CommonStyles = StyleSheet.create({
     margin: 5,
     alignItems: "center",
   },
+  disabledButton: {
+    opacity: 0.5,
+  },
   buttonText: {
     borderRadius: 5,
     fontSize: 40,
