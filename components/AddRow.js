@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextInput, View } from "react-native";
+import { Keyboard, TextInput, View } from "react-native";
 import { CommonStyles } from "../styles/CommonStyles";
 import { CountButton } from "./CountButton";
 
@@ -11,6 +11,7 @@ export const AddRow = ({ addNewCountable }) => {
 
     if (newBirdAdded) {
       setName("");
+      Keyboard.dismiss();
     }
   };
 
