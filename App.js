@@ -33,6 +33,7 @@ export default function App() {
     const cleanBirdName = name.trim();
     const newState = [...countables, { name: cleanBirdName, count: 0 }];
     setCountables(newState);
+    return true;
   };
 
   const isLoaded = useRef(false);

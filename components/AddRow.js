@@ -6,20 +6,24 @@ import { CountButton } from "./CountButton";
 export const AddRow = ({ addNewCountable }) => {
   const [name, setName] = useState("");
 
+  const handleAddNewBird = () => {
+    const newBirdAdded = addNewCountable(name);
+
+    if (newBirdAdded) {
+      setName("");
+    }
+  };
+
   return (
     <View style={CommonStyles.row}>
       <TextInput
         style={CommonStyles.input}
         placeholder="Enter name"
+        value={name}
         onChangeText={setName}
       />
       <View style={CommonStyles.buttonAddition}>
-        <CountButton
-          text="Add"
-          submit={() => {
-            addNewCountable(name);
-          }}
-        />
+        <CountButton text="Add" submit={handleAddNewBird} />
       </View>
     </View>
   );
