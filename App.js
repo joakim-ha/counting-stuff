@@ -9,7 +9,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AddRow } from "./components/AddRow";
 import { CountableRow } from "./components/CountableRow";
-import { isEquals } from "./components/InputValidation";
+import { validateNewBirdName } from "./components/InputValidation";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
 import { CommonStyles } from "./styles/CommonStyles";
 
@@ -23,12 +23,15 @@ export default function App() {
   };
 
   const addNewCountable = (name) => {
-    if (isEquals(countables, name)) {
-      Alert.alert(`${name} already exists`);
+    const error = validateNewBirdName(countables, name);
+
+    if (error) {
+      Alert.alert("Invalid input: ", error);
       return;
     }
 
-    const newState = [...countables, { name, count: 0 }];
+    const cleanBirdName = name.trim();
+    const newState = [...countables, { name: cleanBirdName, count: 0 }];
     setCountables(newState);
   };
 
