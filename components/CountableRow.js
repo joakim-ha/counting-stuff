@@ -51,24 +51,44 @@ export const CountableRow = ({ countable, changeCount, removeCountable, editCoun
         />
       </View>
 
-      <CountButton
-        text={isEditing ? "Save" : "Edit"}
-        textStyle={{ fontSize: 20, color: "#555", padding: 20 }}
-        submit={() => {
-          if (isEditing) {
-            handleSave();
-          } else {
-            setIsEditing(true);
-          }
-        }}
-      />
+      <View style={styles.editColumn}>
+        <CountButton
+          text={isEditing ? "Save" : "Edit"}
+          textStyle={{ fontSize: 20, color: "#555" }}
+          style={styles.buttonFullWidth}
+          submit={() => {
+            if (isEditing) {
+              handleSave();
+            } else {
+              setIsEditing(true);
+            }
+          }}
+        />
+
+        {isEditing && (
+          <>
+            <CountButton
+              text="Cancel"
+              textStyle={{ fontSize: 20, color: "#555" }}
+              style={styles.buttonFullWidth}
+              submit={() => {
+                setNewName(countable.name);
+                setIsEditing(false);
+              }}
+            />
+
+            <CountButton
+              text="Delete"
+              textStyle={{ fontSize: 20, color: "red" }}
+              style={styles.buttonFullWidth}
+              submit={handleDelete}
+            />
+          </>
+        )}
+      </View>
 
 
-      <CountButton
-        text="X"
-        submit={handleDelete}
-        textStyle={{ fontSize: 20, color: "red" }}
-      />
+
     </View>
   );
 };
@@ -94,9 +114,23 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     width: "100%",
+    fontSize: 20,
   },
   editingInput: {
-    fontSize: 18,
+    fontSize: 16,
     padding: 8,
+  },
+  editColumn: {
+    width: 100,
+    alignItems: "stretch",
+    justifyContent: "center",
+    gap: 2,
+    paddingLeft: 10
+  },
+  buttonFullWidth: {
+    width: "100%",
   }
+
+
+
 });
